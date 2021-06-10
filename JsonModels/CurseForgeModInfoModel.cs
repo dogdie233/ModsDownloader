@@ -85,7 +85,7 @@ namespace ModsDownloader.JsonModels
         public class ModulesItem
         {
             public string foldername { get; set; }
-            public int fingerprint { get; set; }
+            public long fingerprint { get; set; }
             public int type { get; set; }
         }
 
@@ -154,7 +154,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 依赖
             /// </summary>
-            public List<string> dependencies { get; set; }
+            public List<DependenciesModel> dependencies { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -166,7 +166,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public int packageFingerprint { get; set; }
+            public long packageFingerprint { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -234,7 +234,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public int packageFingerprintId { get; set; }
+            public long packageFingerprintId { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -360,6 +360,15 @@ namespace ModsDownloader.JsonModels
             /// </summary>
             public int fileType { get; set; }
         }
+
+        public class DependenciesModel
+        {
+            public int id { get; set; }
+            public int addonId { get; set; }
+            public int type { get; set; }
+            public int fileId { get; set; }
+        }
+
         /// <summary>
         /// mod的id
         /// </summary>
@@ -395,7 +404,7 @@ namespace ModsDownloader.JsonModels
         /// <summary>
         /// 下载数量
         /// </summary>
-        public int downloadCount { get; set; }
+        public float downloadCount { get; set; }
         /// <summary>
         /// 最新的文件
         /// </summary>

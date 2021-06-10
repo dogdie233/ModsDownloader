@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ModsDownloader": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\admin\\source\\repos\\ModsDownloader\\bin\\Debug\\net5.0\\yeee.json\""
+    }
+  }
+}

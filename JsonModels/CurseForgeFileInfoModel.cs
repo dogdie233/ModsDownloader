@@ -29,7 +29,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public int fingerprint { get; set; }
+            public long fingerprint { get; set; }
         }
         /// <summary>
         /// 
@@ -86,7 +86,7 @@ namespace ModsDownloader.JsonModels
         /// <summary>
         /// 
         /// </summary>
-        public int packageFingerprint { get; set; }
+        public long packageFingerprint { get; set; }
         /// <summary>
         /// 
         /// </summary>

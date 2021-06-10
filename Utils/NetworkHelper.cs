@@ -23,7 +23,7 @@ namespace ModsDownloader.Utils
 			{
 				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 				using (Stream stream = response.GetResponseStream())
-				using (StreamReader reader = new(stream, Encoding.GetEncoding(response.ContentEncoding)))
+				using (StreamReader reader = new(stream, Encoding.UTF8))
 				{
 					string jsonText = reader.ReadToEnd();
 					return JsonConvert.DeserializeObject<T>(jsonText);
@@ -31,7 +31,7 @@ namespace ModsDownloader.Utils
 			});
 		}
 
-		public static async void DownloadFileAndSave(string url, string path, string header = null, Action<Exception> onException = null, Action<int, int> progressor = null)
+		public static async Task DownloadFileAndSaveAsync(string url, string path, string header = null, Action<int, int> progressor = null)
 		{
 			HttpWebRequest request = (HttpWebRequest)WebRequest.CreateHttp(url);
 			request.Method = "GET";
@@ -43,20 +43,13 @@ namespace ModsDownloader.Utils
 			using (Stream reader = response.GetResponseStream())
 			{
 				int loadedLength = 0;  // 如果下载超大文件可能不够用
-				try
+				while (loadedLength < response.ContentLength)
 				{
-					while (loadedLength < response.ContentLength)
-					{
-						byte[] buffer = new byte[32768];
-						int size = reader.Read(buffer, 0, buffer.Length);
-						file.Write(buffer, 0, size);
-						loadedLength += size;
-						progressor?.Invoke(loadedLength, (int)response.ContentLength);
-					}
-				}
-				catch (Exception e)
-				{
-					onException?.Invoke(e);
+					byte[] buffer = new byte[32768];
+					int size = reader.Read(buffer, 0, buffer.Length);
+					file.Write(buffer, 0, size);
+					loadedLength += size;
+					progressor?.Invoke(loadedLength, (int)response.ContentLength);
 				}
 			}
 		}

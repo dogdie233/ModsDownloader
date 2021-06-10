@@ -89,7 +89,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public int fingerprint { get; set; }
+            public long fingerprint { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -114,6 +114,14 @@ namespace ModsDownloader.JsonModels
             /// 
             /// </summary>
             public string gameVersionName { get; set; }
+        }
+
+        public class DependenciesModel
+		{
+            public int id { get; set; }
+            public int addonId { get; set; }
+            public int type { get; set; }
+            public int fileId { get; set; }
         }
 
         public class LatestFiles
@@ -161,7 +169,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public List<string> dependencies { get; set; }
+            public List<DependenciesModel> dependencies { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -173,7 +181,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public int packageFingerprint { get; set; }
+            public long packageFingerprint { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -241,7 +249,7 @@ namespace ModsDownloader.JsonModels
             /// <summary>
             /// 
             /// </summary>
-            public int packageFingerprintId { get; set; }
+            public long packageFingerprintId { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -407,7 +415,7 @@ namespace ModsDownloader.JsonModels
         /// <summary>
         /// 
         /// </summary>
-        public int downloadCount { get; set; }
+        public float downloadCount { get; set; }
         /// <summary>
         /// 
         /// </summary>
