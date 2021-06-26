@@ -18,16 +18,16 @@ namespace ModsDownloader.DownloadSourceParsers
 		protected override string GetDownloadUrl(ModListModel.CurseForgeSource source, string minecraftVersion, ModType modType)
 		{
 			string[] split = source.modLink.Split("/");
-			string modName = split[split.Length - 1];
+			string modName = split[split.Length - 1];  // 获取mod名称
 
-			List<CurseForgeSearchModInfoModel> searchResult = NetworkHelper.GetJson<List<CurseForgeSearchModInfoModel>>(SEARCH_URL + modName, USER_AGENT).Result;
+			List<CurseForgeSearchModInfoModel> searchResult = NetworkHelper.GetJson<List<CurseForgeSearchModInfoModel>>(SEARCH_URL + modName, USER_AGENT).Result;  // 搜索
 			if (searchResult == null) { throw new Exception("Convert search json failed"); }
 
-			CurseForgeModInfoModel modInfo = NetworkHelper.GetJson<CurseForgeModInfoModel>(MOD_INFO_URL + searchResult[0].id, USER_AGENT).Result;
+			CurseForgeModInfoModel modInfo = NetworkHelper.GetJson<CurseForgeModInfoModel>(MOD_INFO_URL + searchResult[0].id, USER_AGENT).Result;  // mod信息
 			if (modInfo == null) { throw new Exception("Convert mod info json failed"); }
 
 			int fileId = -1;
-			foreach (CurseForgeModInfoModel.GameVersionLatestFilesItem file in modInfo.gameVersionLatestFiles)
+			foreach (CurseForgeModInfoModel.GameVersionLatestFilesItem file in modInfo.gameVersionLatestFiles)  // 文件id
 			{
 				if (file.gameVersion == minecraftVersion)
 				{
@@ -37,7 +37,7 @@ namespace ModsDownloader.DownloadSourceParsers
 			}
 			if (fileId == -1) { throw new Exception("Couldn't find current version"); }
 
-			CurseForgeFileInfoModel fileInfo = NetworkHelper.GetJson<CurseForgeFileInfoModel>(string.Format(FILE_INFO_URL, modInfo.id, fileId), USER_AGENT).Result;
+			CurseForgeFileInfoModel fileInfo = NetworkHelper.GetJson<CurseForgeFileInfoModel>(string.Format(FILE_INFO_URL, modInfo.id, fileId), USER_AGENT).Result;  // 文件信息
 			if (fileInfo == null) { throw new Exception("Convert file info json failed"); }
 			return fileInfo.downloadUrl;
 		}
